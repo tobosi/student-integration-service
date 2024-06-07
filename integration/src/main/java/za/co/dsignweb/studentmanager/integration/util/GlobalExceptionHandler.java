@@ -21,8 +21,10 @@ public class GlobalExceptionHandler {
     }
 
     private ResponseEntity<ApiError> getApiError(final Exception e, final HttpStatus httpStatus, final WebRequest webRequest) throws URISyntaxException {
-        final FeignException exception = (FeignException) e;
-        final String response = (exception.responseBody().isPresent()) ? new String(exception.responseBody().get().array(), StandardCharsets.UTF_8) : null;
-        return new ResponseEntity<>(new ApiError(httpStatus, e, response,  webRequest), httpStatus);
+        e.printStackTrace();
+        final String repsonse = (e instanceof FeignException) ?
+                ((((FeignException) e).responseBody().isPresent()) ? new String(((FeignException) e).responseBody().get().array(), StandardCharsets.UTF_8) : null) : e.getMessage();
+
+        return new ResponseEntity<>(new ApiError(httpStatus, e, repsonse,  webRequest), httpStatus);
     }
 }
