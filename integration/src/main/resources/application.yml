@@ -21,11 +21,3 @@ management:
     health:
       probes:
         enabled: true
-
----
-spring:
-  config:
-    activate:
-      on-profile: docker
-
-student-service-base-url: http://student-service
